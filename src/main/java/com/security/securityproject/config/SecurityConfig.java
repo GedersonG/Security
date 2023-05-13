@@ -10,6 +10,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.security.securityproject.entities.Role.ADMIN;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -26,6 +28,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers("/api/v1/auth/**")
                 .permitAll()
+                .antMatchers("/api/v1/management")
+                .hasAuthority(ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
